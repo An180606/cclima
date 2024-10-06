@@ -1,0 +1,92 @@
+---
+title: "potato molina"
+format: html
+editor: visual
+editor_options: 
+  chunk_output_type: console
+---
+
+## Quarto
+
+Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+
+## Running Code
+
+When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+
+```{r}
+1 + 1
+```
+
+You can add options to executable code like this
+
+```{r}
+#| echo: false
+2 * 2
+```
+
+The `echo: false` option disables the printing of code (only output is displayed).
+
+
+```{r}
+library(readxl)
+fb<- read_excel("LA MOLINA 2014 POTATO WUE (FB).xlsx", 
+    sheet = "fb")
+View(fb)
+
+str(fb)
+```
+
+
+
+#analisis de datos
+##modelo estadistico
+```{r}
+modelo <- aov(lfa ~riego + geno + riego *geno + bloque, data = fb)
+
+plot(modelo)
+
+
+anova(modelo)
+
+
+
+```
+
+##comparación de medias
+```{r}
+#library(emmens)
+#library(multcomp)
+#library(tidyverse)
+library(agricolae)
+mc <- agricolae::duncan.test(modelo, trt = c("riego","geno"))
+
+mc
+
+modc <- agricolae::HSD.test(modelo,trt = c("riego","geno"))
+modc
+
+str(mc)
+
+plot(mc)
+str(modc)
+
+plot(modc)
+
+
+```
+
+##grafico
+
+```{r}
+#library(inti)
+#plot_smr(data) con comillas
+```
+
+```{r}
+#ggplot(data) sin comillas
+```
+
+
+
+

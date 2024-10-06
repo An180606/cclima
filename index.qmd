@@ -3,7 +3,29 @@ title: "climate_change"
 author: "Annie Challco"
 format: html
 editor: visual
-editor_options: 
-  chunk_output_type: console
 ---
+
+
+
+#diseño experimental ##dca
+
+```{r}
+options(repos = c(CRAN = "https://cloud.r-project.org/"))
+
+
+install.packages("agricolae")
+library(agricolae)
+
+tratamiento <- c(0, 50, 100, 150)
+repeticiones <-  c(5)
+diseño_dca <- sample(rep(tratamiento,repeticiones))
+print(diseño_dbca)
+
+
+
+
+```
+
+
+
 
