@@ -55,9 +55,9 @@ anova(modelo)
 
 ##comparación de medias
 ```{r}
-#library(emmens)
-#library(multcomp)
-#library(tidyverse)
+library(emmeans)
+library(multcomp)
+library(tidyverse)
 library(agricolae)
 mc <- agricolae::duncan.test(modelo, trt = c("riego","geno"))
 
@@ -71,7 +71,15 @@ str(mc)
 plot(mc)
 str(modc)
 
-plot(modc)
+
+#emmeans
+
+mc <- emmeans(modelo, ~riego | geno) %>% cld(letter=letters, reserved=TRUE)
+mc
+modelo_emmeans <- aov(lfa ~riego+geno+riego*geno+bloque, data = fb)
+plot(modelo_emmeans)
+
+anova(modelo_emmeans)
 
 
 ```
@@ -79,8 +87,11 @@ plot(modc)
 ##grafico
 
 ```{r}
-#library(inti)
-#plot_smr(data) con comillas
+library(inti)
+
+plot_smr(data = mc, type="bar", x="geno", y= "emmean", group = "riego", sig = ".group", error = "SE", ylimits = c(0, 12000,2000))
+         
+         
 ```
 
 ```{r}
